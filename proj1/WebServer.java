@@ -119,8 +119,8 @@ final class HttpRequest implements Runnable
 		else
 		{
 			statusLine = "404" + CRLF;
-			contentTypeLine = "Content-type: text/plain" + CRLF;
-			entityBody = "<HTML" +
+			contentTypeLine = "Content-type: text/html" + CRLF;
+			entityBody = "<HTML>" +
 				"<HEAD><TITLE>Not Found</TITLE></HEAD>" +
 				"<BODY>Not Found</BODY></HTML>";
 		}
