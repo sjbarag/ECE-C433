@@ -1,3 +1,8 @@
+#### Info
+Author: Sean Barag
+Date: 23 January 2012
+Course: ECEC433 (Winter 2012)
+
 #### Contents
 The following files are included in this .zip archive:
 * README.md - This file
@@ -5,6 +10,7 @@ The following files are included in this .zip archive:
 * Makefile - A GNU Make file
 * instructions.txt - A plaintext copy of the assignment instructions
 * foo.txt - A sample text file
+* LICENSE - Software license for this project
 
 #### Compiling
 This project can be compiled using the included Makefile, assuming that GNU
