@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <pcap/pcap.h>
 
-
 void main()
 {
 	/* check for root uid :) */
