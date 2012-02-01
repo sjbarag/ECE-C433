@@ -33,4 +33,4 @@ ${OUTDIR}:
 	mkdir out/
 
 clean :
-	-rm -f ${OUTFILE}
+	-rm ${OUTDIR}/*
