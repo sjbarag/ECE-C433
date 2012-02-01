@@ -18,7 +18,7 @@ p1b : ${OUTDIR} p1b.c
 	${CC} ${CFLAGS} -o ${OUTDIR}/p1b p1b.c
 
 p1c : ${OUTDIR} p1c.c
-	${CC} ${CFLAGS} -o ${OUTDIR}/p1c p1c.c
+	${CC} ${CFLAGS} -lpthread -o ${OUTDIR}/p1c p1c.c
 
 run all:
 	echo "Running all, yo"
