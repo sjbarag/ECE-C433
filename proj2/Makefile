@@ -17,7 +17,7 @@ p1a : ${OUTDIR} p1a.c
 p1b : ${OUTDIR} p1b.c
 	${CC} ${CFLAGS} -o ${OUTDIR}/p1b p1b.c
 
-p1c : ${OUTDIR} p1c.c
+p1c : ${OUTDIR} p1c.c p1c.h
 	${CC} ${CFLAGS} -lpthread -o ${OUTDIR}/p1c p1c.c
 
 run all:
