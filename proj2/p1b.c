@@ -55,24 +55,28 @@ void main()
 		printf("Name\tIP address\tNetmask\n------\t---------------\t---------------\n");
 		while( devs_it != NULL )
 		{
-			temp_addr = devs_it->addresses;
-			while( temp_addr != NULL )
+			/* avoid loopback */
+			if( devs_it->flags != PCAP_IF_LOOPBACK )
 			{
-				if( temp_addr->netmask != NULL )
+				temp_addr = devs_it->addresses;
+				while( temp_addr != NULL )
 				{
-					/* check for IPv4 */
-					if( temp_addr->addr->sa_family == AF_INET && temp_addr->netmask->sa_family == AF_INET )
+					if( temp_addr->netmask != NULL )
 					{
-						printf("%6s\t%15s\t%15s\n",
-						       devs_it->name, // name
-						       inet_ntoa( ( (struct sockaddr_in *)temp_addr->addr)->sin_addr ), // IP
-						       inet_ntoa( ( (struct sockaddr_in *)temp_addr->netmask)->sin_addr )
-						       //( (struct sockaddr_in*) temp_addr->netmask)->sin_addr.s_addr
-						       // netmask in hex right now.  Oh, and it's backwards.  Did I mention it's backwards?
-							   );
+						/* check for IPv4 */
+						if( temp_addr->addr->sa_family == AF_INET && temp_addr->netmask->sa_family == AF_INET )
+						{
+							printf("%6s\t%15s\t%15s\n",
+							       devs_it->name, // name
+							       inet_ntoa( ( (struct sockaddr_in *)temp_addr->addr)->sin_addr ), // IP
+							       inet_ntoa( ( (struct sockaddr_in *)temp_addr->netmask)->sin_addr )
+							       //( (struct sockaddr_in*) temp_addr->netmask)->sin_addr.s_addr
+							       // netmask in hex right now.  Oh, and it's backwards.  Did I mention it's backwards?
+								   );
+						}
 					}
+					temp_addr = temp_addr->next;
 				}
-				temp_addr = temp_addr->next;
 			}
 			devs_it = devs_it->next;
 		}
