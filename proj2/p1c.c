@@ -17,20 +17,40 @@ typedef struct thread_args
 	pcap_t *nd;           /* network descriptor */
 } THREAD_ARGS;
 
+int pkt_count = 0;
 
 void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 {
-	printf("Got a packet!\n");
+	++pkt_count;
+	if( pkt_count == 1 )
+	{
+		printf("Number of Packets:\t");
+	}
+	else /* delete the old characters and overwrite */
+	{
+		if( pkt_count < 10 )
+			printf("\b");
+		else if( pkt_count < 100 )
+			printf("\b\b");
+		else if( pkt_count < 1000 )
+			printf("\b\b\b");
+		else if( pkt_count < 10000 )
+			printf("\b\b\b\b");
+	}
+
+	fflush(stdout);
+	printf("%d", pkt_count);
 }
 
 void *sniff_timer(void *in_args)
 {
 	THREAD_ARGS *l_args = (THREAD_ARGS *) in_args;
-	printf("D/sniff_timer: Starting timer...\n");
 	sleep( l_args->time );
-
-	printf("D/sniff_timer: Canceling loop!\n");
 	pcap_breakloop( l_args->nd );
+	if( pkt_count == 0 )
+		printf("%d\n", pkt_count); /* it never printed in proc_pkt */
+	else
+		printf("\n");     /* add final newline for proc_pkt */
 }
 
 
@@ -124,7 +144,7 @@ void main( int argc, char** argv )
 
 	/* ----- setup capture ----- */
 	nd = pcap_open_live(device, BUFSIZ, 0, 2, errbuf);
-	printf("Using device:\t%s\n", device);
+	printf("Using device:\t   %6s\n", device);
 
 	/* ----- fill thread args ----- */
 	t_args = (THREAD_ARGS *)malloc(sizeof(THREAD_ARGS));
@@ -143,12 +163,4 @@ void main( int argc, char** argv )
 
 	/* ----- wait for thread to rejoin ----- */
 	pthread_join( timer, NULL );
-	printf("D/main: timer thread joined successfully!\n");
-
-	if( status == 0 )
-		printf("count exhausted");
-	else if( status == -1 )
-		fprintf(stderr, "pcap_loop threw error:\n\t%s\n", errbuf);
-	else if( status == -2 )
-		fprintf(stderr, "Loop terminated by pcap_breakloop\n");
 }
