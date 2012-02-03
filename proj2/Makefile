@@ -20,6 +20,9 @@ p1b : ${OUTDIR} p1b.c
 p1c : ${OUTDIR} p1c.c p1c.h
 	${CC} ${CFLAGS} -lpthread -o ${OUTDIR}/p1c p1c.c
 
+p1d : ${OUTDIR} p1d.c p1c.h
+	${CC} ${CFLAGS} -lpthread -o ${OUTDIR}/p1d p1d.c
+
 run all:
 	echo "Running all, yo"
 
