@@ -22,6 +22,9 @@ void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 
 	fflush(stdout);
 	printf("%d", pkt_count);
+
+	/* log timing data */
+	fprintf(data_out, "%ld.%06ld\n", h->ts.tv_sec, h->ts.tv_usec);
 }
 
 /* pthread function to cancel the pcap_loop after a set amount of time
@@ -106,14 +109,16 @@ void main( int argc, char** argv )
 	}
 
 	/* ----- setup capture ----- */
-	//nd = pcap_open_live(device, BUFSIZ, 0, 2, errbuf);
-	nd = pcap_open_live("lo", BUFSIZ, 0, 2, errbuf);
+	nd = pcap_open_live(device, BUFSIZ, 0, 2, errbuf);
 	printf("Using device:\t   %6s\n", device);
 
 	/* ----- fill thread args ----- */
 	t_args = (THREAD_ARGS *)malloc(sizeof(THREAD_ARGS));
 	t_args->time = sleep_time;
 	t_args->nd   = nd;
+
+	/* ----- open file for saving data ----- */
+	data_out = fopen("timing_data.txt", "w+b");
 
 	/* ----- spawn thread ----- */
 	if( (pthread_create( &timer, NULL, sniff_timer, (void *)t_args)) != 0)
@@ -127,4 +132,11 @@ void main( int argc, char** argv )
 
 	/* ----- wait for thread to rejoin ----- */
 	pthread_join( timer, NULL );
+
+	/* ----- close the file ----- */
+	if( fclose(data_out) == EOF )
+	{
+		fprintf(stderr, "Error: something went wrong when closing the file!\nExiting...\n");
+		exit(-1);
+	}
 }

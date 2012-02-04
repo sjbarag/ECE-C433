@@ -27,6 +27,7 @@ void *sniff_timer(void *in_args);
 int sleep_time;                   /* time to sniff */
 int status = 0;                   /* return for various functions */
 int got_device = 0;               /* flag */
+FILE *data_out;                   /* file descriptor for timing data */
 
 /* --- pcap specific stuff --- */
 pcap_if_t *all_devs;              /* linked list of all devices that can be opened
