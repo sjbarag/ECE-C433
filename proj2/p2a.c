@@ -1,14 +1,45 @@
 #include "p1c.h"
 #include <netinet/ether.h>
 
+char* hstoa(uint16_t ethertype)
+{
+	switch(ethertype)
+	{
+		case ETHERTYPE_PUP:
+			return "Xerox PUP";
+		case ETHERTYPE_SPRITE:
+			return "Sprite";
+		case ETHERTYPE_IP:
+			return "IPv4";
+		case ETHERTYPE_ARP:
+			return "ARP";
+		case ETHERTYPE_REVARP:
+			return "Reverse ARP";
+		case ETHERTYPE_AT:
+			return "AppleTalk";
+		case ETHERTYPE_AARP:
+			return "AppleTalk ARP";
+		case ETHERTYPE_VLAN:
+			return "IEEE 802.1Q VLAN tagging";
+		case ETHERTYPE_IPX:
+			return "IPX";
+		case ETHERTYPE_IPV6:
+			return "IPv6";
+		case ETHERTYPE_LOOPBACK:
+			return "Loopback";
+		default:
+			return "Unknown";
+	}
+}
+
 /* pcap_loop callback function */
 void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 {
 	struct ether_header* eth_hdr = (struct ether_header*)bytes;
-	printf("%017s\t%017s\t%8u\n",
-		ether_ntoa( (struct ether_addr*)eth_hdr->ether_shost ),
+	printf("%017s\t%017s\t%11s\n",
 		ether_ntoa( (struct ether_addr*)eth_hdr->ether_dhost ),
-		ntohs(eth_hdr->ether_type) );
+		ether_ntoa( (struct ether_addr*)eth_hdr->ether_shost ),
+		hstoa( ntohs(eth_hdr->ether_type) ) );
 }
 
 /* pthread function to cancel the pcap_loop after a set amount of time
