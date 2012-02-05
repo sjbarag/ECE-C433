@@ -128,9 +128,6 @@ void main( int argc, char** argv )
 	t_args->time = sleep_time;
 	t_args->nd   = nd;
 
-	/* ----- open file for saving data ----- */
-	data_out = fopen("timing_data.txt", "w+b");
-
 	/* ----- spawn thread ----- */
 	if( (pthread_create( &timer, NULL, sniff_timer, (void *)t_args)) != 0)
 	{
@@ -144,11 +141,4 @@ void main( int argc, char** argv )
 
 	/* ----- wait for thread to rejoin ----- */
 	pthread_join( timer, NULL );
-
-	/* ----- close the file ----- */
-	if( fclose(data_out) == EOF )
-	{
-		fprintf(stderr, "Error: something went wrong when closing the file!\nExiting...\n");
-		exit(-1);
-	}
 }
