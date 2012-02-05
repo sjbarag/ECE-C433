@@ -5,8 +5,10 @@
 void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 {
 	struct ether_header* eth_hdr = (struct ether_header*)bytes;
-	printf("src:\t%017s\n", ether_ntoa( (struct ether_addr*)eth_hdr->ether_shost ) );
-	printf("dst:\t%017s\n", ether_ntoa( (struct ether_addr*)eth_hdr->ether_dhost ) );
+	printf("%017s\t%017s\t%8u\n",
+		ether_ntoa( (struct ether_addr*)eth_hdr->ether_shost ),
+		ether_ntoa( (struct ether_addr*)eth_hdr->ether_dhost ),
+		ntohs(eth_hdr->ether_type) );
 }
 
 /* pthread function to cancel the pcap_loop after a set amount of time
@@ -16,10 +18,6 @@ void *sniff_timer(void *in_args)
 	THREAD_ARGS *l_args = (THREAD_ARGS *) in_args;
 	sleep( l_args->time );
 	pcap_breakloop( l_args->nd );
-	if( pkt_count == 0 )
-		printf("%d\n", pkt_count); /* it never printed in proc_pkt */
-	else
-		printf("\n");     /* add final newline for proc_pkt */
 }
 
 void main( int argc, char** argv )
@@ -110,7 +108,8 @@ void main( int argc, char** argv )
 	}
 
 	/* ----- start loop ----- */
-	status = pcap_loop( nd, 0, proc_pkt, "Herp derp" );
+	printf("%17s\t%17s\t%8s\n", "SRC MAC", "DST MAC", "Type");
+	status = pcap_loop( nd, 0, proc_pkt, NULL );
 
 	/* ----- wait for thread to rejoin ----- */
 	pthread_join( timer, NULL );
