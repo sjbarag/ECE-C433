@@ -18,6 +18,10 @@ void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 			printf("\b\b\b");
 		else if( pkt_count < 10000 )
 			printf("\b\b\b\b");
+		else if( pkt_count < 100000 )
+			printf("\b\b\b\b\b");
+		else if( pkt_count < 1000000 )
+			printf("\b\b\b\b\b\b");
 	}
 
 	fflush(stdout);
