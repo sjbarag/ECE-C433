@@ -32,18 +32,15 @@ for bin_i in range(3):
 			counts[bin_i].append(1)
 
 # print to file
-f = open("binned_data.txt", "w")
+f = []
+f.append( open("binned_data_m.txt", "w") )
+f.append( open("binned_data_s.txt", "w") )
+f.append( open("binned_data_us.txt", "w") )
 
 for i in range(len(vals)):
-	if i == 0:
-		f.write( "# --- minutes ---\n" )
-	elif i==1:
-		f.write( "\n# --- seconds ---\n" )
-	elif i==2:
-		f.write( "\n# --- useconds ---\n" )
-
 	for v,c in zip(vals[i], counts[i]):
-		f.write( '{:d}{:s}{:d}{:s}'.format(v, '\t\t', c, '\n') )
+		f[i].write( '{:d}{:s}{:d}{:s}'.format(v, '\t\t', c, '\n') )
 		#print v, "\t\t", c
 
-f.close()
+for i in range(len(f)):
+	f[i].close()
