@@ -3,6 +3,10 @@
 /* pcap_loop callback function */
 void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 {
+	/* TODO:
+	 * Print the size of the packet too.
+	 * printf("Size:\t%10i\n", (int)h.len);
+	 */
 	++pkt_count;
 	if( pkt_count == 1 ) /* print on first packet only */
 	{
