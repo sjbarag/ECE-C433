@@ -3,10 +3,6 @@
 /* pcap_loop callback function */
 void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 {
-	/* TODO:
-	 * Print the size of the packet too.
-	 * printf("Size:\t%10i\n", (int)h.len);
-	 */
 	++pkt_count;
 	if( pkt_count == 1 ) /* print on first packet only */
 	{
@@ -31,8 +27,8 @@ void proc_pkt(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes)
 	fflush(stdout);
 	printf("%d", pkt_count);
 
-	/* log timing data */
-	fprintf(data_out, "%ld.%06ld\n", h->ts.tv_sec, h->ts.tv_usec);
+	/* log timing and size data */
+	fprintf(data_out, "%ld.%06ld\t%10d\n", h->ts.tv_sec, h->ts.tv_usec, h->len);
 }
 
 /* pthread function to cancel the pcap_loop after a set amount of time
