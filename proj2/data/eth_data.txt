@@ -1,0 +1,43 @@
+Using device:	    wlan0
+          SRC MAC	          DST MAC	       Type
+-----------------	-----------------	-----------
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+ 0:21:e9:e0:db:1b	 0:21:e9:e0:db:1b	       IPv4
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	       IPv4
+ 0:21:e9:e0:db:1b	 0:21:e9:e0:db:1b	        ARP
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	        ARP
+    33:33:0:1:0:2	    33:33:0:1:0:2	       IPv6
+    33:33:0:1:0:2	    33:33:0:1:0:2	       IPv6
+    33:33:0:1:0:2	    33:33:0:1:0:2	       IPv6
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	       IPv4
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	       IPv4
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	       IPv4
+ 0:21:e9:e0:db:1b	 0:21:e9:e0:db:1b	       IPv4
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	       IPv4
+ 0:21:e9:e0:db:1b	 0:21:e9:e0:db:1b	       IPv4
+ 0:21:e9:e0:db:1b	 0:21:e9:e0:db:1b	       IPv4
+ 0:21:e9:e0:db:1b	 0:21:e9:e0:db:1b	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+  1:0:5e:7f:ff:fa	  1:0:5e:7f:ff:fa	       IPv4
+    33:33:0:1:0:2	    33:33:0:1:0:2	       IPv6
+ff:ff:ff:ff:ff:ff	ff:ff:ff:ff:ff:ff	       IPv4
+ff:ff:ff:ff:ff:ff	ff:ff:ff:ff:ff:ff	       IPv4
+ff:ff:ff:ff:ff:ff	ff:ff:ff:ff:ff:ff	       IPv4
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	       IPv4
+c0:c1:c0:dc:73:a2	c0:c1:c0:dc:73:a2	       IPv4
