@@ -24,25 +24,26 @@ ufloor = [int(val // 0.001) for val in tdata]
 floored = [ mfloor, sfloor, ufloor ]
 
 # bin tdata
-tvals = [ [],[],[] ]
-tcounts = [ [],[],[] ]
+tdict = [{}, {}, {}]
 for bin_i in range(3):
 	for val in floored[bin_i]:
-		if val in tvals[bin_i]:
-			tcounts[bin_i][ tvals[bin_i].index(val) ] += 1
+		if val in tdict[bin_i]:
+			tdict[bin_i][val] += 1
 		else:
-			tvals[bin_i].append(val)
-			tcounts[bin_i].append(1)
+			tdict[bin_i][val] = 1
 
 # open tfiles
 f = [] # array of file descriptors
-f.append( open("data/binned_data_m.txt", "w") )
-f.append( open("data/binned_data_s.txt", "w") )
-f.append( open("data/binned_data_ms.txt", "w") )
+f.append( open("binned_data_m.txt", "w") )
+f.append( open("binned_data_s.txt", "w") )
+f.append( open("binned_data_ms.txt", "w") )
+#f.append( open("data/binned_data_ms.txt", "w") )
+#f.append( open("data/binned_data_s.txt", "w") )
+#f.append( open("data/binned_data_ms.txt", "w") )
 
 # write tdata
-for i in range(len(tvals)):
-	for v,c in zip(tvals[i], tcounts[i]):
+for i in range(3):
+	for v,c in tdict[i].items():
 		f[i].write( '{:d}{:s}{:d}{:s}'.format(v, '\t\t', c, '\n') )
 
 #close tfiles
@@ -51,20 +52,21 @@ for i in range(len(f)):
 
 # ---------- size data ----------
 # bin sdata
-scounts = [ [], [] ]
+cdict = {}
 for size in sdata:
-	if size in scounts[0]:
-		scounts[1][ scounts[0].index(size) ] += 1
+	if size in cdict:
+		cdict[size] += 1
 	else:
-		scounts[0].append(size)
-		scounts[1].append(1)
+		cdict[size] = 1
 
 # calculate frequencies
-pktcount = len(sdata)
-scounts[1] = [ float(c)/float(pktcount) for c in scounts[1] ]
+pktcount = sum( cdict.values() )
+for k,v in cdict.items():
+	cdict[k] = float(v)/float(pktcount)
 
 # write sdata
-f = open("data/frequency_data.txt", "w")
-for v,c in zip(scounts[0], scounts[1]):
+f = open("frequency_data.txt", "w")
+#f = open("data/frequency_data.txt", "w")
+for v,c in cdict.items():
 	f.write( '{:d}{:s}{:f}{:s}'.format(v, '\t\t', c, '\n') )
 f.close()
