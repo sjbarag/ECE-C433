@@ -1,3 +1,8 @@
+/* ECE-C433 Project 2
+ * Part 2a
+ * Author: Sean Barag
+ */
+
 #include "p1c.h"
 #include <netinet/ether.h>
 

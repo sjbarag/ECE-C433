@@ -1,3 +1,8 @@
+/* ECE-C433 Project 2
+ * Parts 1c, 1d, 1e
+ * Author: Sean Barag
+ */
+
 #include "p1c.h"
 
 /* pcap_loop callback function */

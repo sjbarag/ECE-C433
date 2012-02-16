@@ -1,3 +1,8 @@
+/* ECE-C433 Project 2
+ * Part 1a
+ * Author: Sean Barag
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
