@@ -66,13 +66,14 @@ void main()
 						/* check for IPv4 */
 						if( temp_addr->addr->sa_family == AF_INET && temp_addr->netmask->sa_family == AF_INET )
 						{
-							printf("%6s\t%15s\t%15s\n",
+							/* It seems you can't have two calls to inet_ntoa
+							 * in a single printf, or you'll get the first
+							 * returned value printed twice.  WEIRD. */
+							printf("%6s\t%15s",
 							       devs_it->name, // name
-							       inet_ntoa( ( (struct sockaddr_in *)temp_addr->addr)->sin_addr ), // IP
-							       inet_ntoa( ( (struct sockaddr_in *)temp_addr->netmask)->sin_addr )
-							       //( (struct sockaddr_in*) temp_addr->netmask)->sin_addr.s_addr
-							       // netmask in hex right now.  Oh, and it's backwards.  Did I mention it's backwards?
-								   );
+							       inet_ntoa( ( (struct sockaddr_in *)temp_addr->addr)->sin_addr ) ); // IP
+							printf("\t%15s\n",
+							       inet_ntoa( ( (struct sockaddr_in *)temp_addr->netmask)->sin_addr ) ); // netmask
 						}
 					}
 					temp_addr = temp_addr->next;
