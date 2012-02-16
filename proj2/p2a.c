@@ -1,5 +1,5 @@
 /* ECE-C433 Project 2
- * Part 2a
+ * Parts 2a, 2b, 2c
  * Author: Sean Barag
  */
 
@@ -141,7 +141,8 @@ void main( int argc, char** argv )
 	}
 
 	/* ----- start loop ----- */
-	printf("%17s\t%17s\t%8s\n", "SRC MAC", "DST MAC", "Type");
+	printf("%17s\t%17s\t%11s\n", "SRC MAC", "DST MAC", "Type");
+	printf("-----------------\t-----------------\t-----------\n");
 	status = pcap_loop( nd, 0, proc_pkt, NULL );
 
 	/* ----- wait for thread to rejoin ----- */
