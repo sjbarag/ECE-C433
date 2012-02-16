@@ -36,6 +36,7 @@ run2:
 	echo "Running p1b"
 
 ${OUTDIR}:
+	mkdir data/
 	mkdir out/
 
 clean :

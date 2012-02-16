@@ -127,7 +127,7 @@ void main( int argc, char** argv )
 	t_args->nd   = nd;
 
 	/* ----- open file for saving data ----- */
-	data_out = fopen("timing_data.txt", "w+b");
+	data_out = fopen("data/timing_data.txt", "w+b");
 
 	/* ----- spawn thread ----- */
 	if( (pthread_create( &timer, NULL, sniff_timer, (void *)t_args)) != 0)
