@@ -5,9 +5,6 @@ Course: ECEC433 (Winter 2012)
 
 #### Contents
 The following files are included in this .zip archive:
-* README.md   This file
-* Makefile    A GNU Make file
-
 * p1a.c     Part 1a source file
 * p1b.c     Part 1b source file
 * p1c.h     Header file for p1c and p2a
@@ -22,7 +19,20 @@ The following files are included in this .zip archive:
 * ethDist.py     Data processing script for p2b and p2c
 * data/plots.gp  gnuplot script to generate plots for p1d and p1e
 
+* data/by\_millisecond.png    gnuplot output for packet arrival times, by millisecond
+* data/by\_second.png         gnuplot output for packet arrival times, by second
+* data/by\_minute.png         gnuplot output for packet arrival times, by minute
+* data/cdf.png                gnuplot cumulative density function for packet sizes
+* data/eth\_differences.txt   Description of the ethernet type distribution and
+                              promiscuity differences
+
+* data/timing\_data.txt      Captured data used for the plots
+* data/eth\_data.txt         Captured data used for the ethernet type analysis
+
+* README.md         This file
+* Makefile          A GNU Make file
 * instructions.pdf  A copy of the instructions
+* combined.pdf      A print-ready PDF of all the code
 * LICENSE           Software license for this project
 
 #### Compiling
