@@ -9,7 +9,6 @@
 #include <string.h>        /* needed for memset and related string functions */
 #include <unistd.h>        /* needed for close() */
 
-#define SERVER_PORT 10001
 #define RECVBUFSIZE 64
 
 int main( int argc, char *argv[] )
@@ -31,11 +30,27 @@ int main( int argc, char *argv[] )
 	/* character used to store each byte received from server */
 	char c = ' ';
 
+	/* port on the server to use */
+	int server_port;
 
-	if ( argc != 3 )
+	if ( argc < 3 )
 	{
-		fprintf( stderr, "usage: incrementClient <ServerIPaddress> <number>\n" );
+		fprintf( stderr, "usage: incrementClient <ServerIPaddress> [ServerPortNumber] <number>\n" );
 		exit( 0 );
+	}
+	else if ( argc == 3 )
+	{
+		fprintf( stderr, "Defaulting to port 10001\n");
+		server_port = 10001;
+
+		/* set number to send */
+		sendNumberString = argv[2];
+	}
+	else if ( argc == 4 )
+	{
+		server_port = atoi( argv[2] );
+		/* set number to send */
+		sendNumberString = argv[3];
 	}
 
 	/* create socket */
@@ -52,7 +67,7 @@ int main( int argc, char *argv[] )
 
 	/* set socket address to server address and port */
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_port = htons( SERVER_PORT );
+	serverAddr.sin_port = htons( server_port );
 	if ( inet_pton( AF_INET, argv[ 1 ], &serverAddr.sin_addr ) <= 0 )
 	{
 		perror( "inet_pton() failed" );
@@ -67,8 +82,7 @@ int main( int argc, char *argv[] )
 	}
 	printf( "Connected to server.\n" );
 
-	/* set number to send */
-	sendNumberString = argv[ 2 ];
+
 
 	/* number of bytes to send is 1 more than the number of digits in the number
 	   because we have to also send the delimiter character '\0' */
