@@ -2,28 +2,27 @@
 CC = gcc
 CFLAGS1 = -g -lnsl
 SRC1C = incrementClient.c
-OUT1C = incrementClient
+BIN1C = incrementClient
 SRC1S = incrementServer.c
-OUT1S = incrementServer
-OUTDIR  = out/
+BIN1S = incrementServer
+BINDIR  = bin/
 
 default : q1
 
-1c: ${SRC1C} ${OUTDIR}
-	gcc ${CFLAGS1} -o ${OUTDIR}${OUT1C} ${SRC1C}
+1c: ${SRC1C} ${BINDIR}
+	gcc ${CFLAGS1} -o ${BINDIR}${BIN1C} ${SRC1C}
 
-1s: ${SRS1S} ${OUTDIR}
-	gcc ${SFLAGS1} -o ${OUTDIR}${OUT1S} ${SRC1S}
+1s: ${SRS1S} ${BINDIR}
+	gcc ${SFLAGS1} -o ${BINDIR}${BIN1S} ${SRC1S}
 
 run1c:
-	./${OUTDIR}${OUT1C}
+	./${BINDIR}${BIN1C}
 
 run1s:
-	./${OUTDIR}${OUT1S}
+	./${BINDIR}${BIN1S}
 
-${OUTDIR}:
-	mkdir data/
-	mkdir out/
+${BINDIR}:
+	mkdir ${BINDIR}
 
 clean :
-	-rm ${OUTDIR}/*
+	-rm ${BINDIR}/*
