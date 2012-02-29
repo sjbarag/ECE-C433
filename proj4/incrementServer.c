@@ -10,7 +10,6 @@
 #include <unistd.h>           /* needed for close() */
 
 #define BACKLOG 5
-#define SERVER_PORT 10001
 #define RECVBUFSIZE 64
 
 int main( int argc, char *argv[] )
@@ -19,6 +18,7 @@ int main( int argc, char *argv[] )
 	/* client and server sockets and addresses */
 	int serverSocket;
 	int clientSocket;
+	int server_port;
 	struct sockaddr_in serverAddr;
 	struct sockaddr_in clientAddr;
 	unsigned int clientAddrLen;
@@ -36,11 +36,14 @@ int main( int argc, char *argv[] )
 	/* number of bytes to send to client in order to send the incremented number */
 	unsigned int incNumberStringLen;
 
-	if ( argc != 1 )
+	if ( argc != 2 )
 	{
-		fprintf( stderr, "usage: no arguments\n" );
-		exit( 0 );
+		fprintf( stderr, "usage: incrementServer <ServerPortNumber>\n" );
+		fprintf( stderr, "Defaulting to port 10001\n");
+		server_port = 10001;
 	}
+	else if ( argc == 2 )
+		server_port = atoi( argv[1] );
 
 	/* create server side socket */
 	serverSocket = socket( PF_INET, SOCK_STREAM, IPPROTO_TCP );
@@ -60,7 +63,7 @@ int main( int argc, char *argv[] )
 	   incoming interface. */
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_addr.s_addr = htonl( INADDR_ANY );
-	serverAddr.sin_port = htons( SERVER_PORT );
+	serverAddr.sin_port = htons( server_port );
 
 	/* bind server address and port to server side socket */
 	if ( bind( serverSocket, (struct sockaddr *) &serverAddr, sizeof( serverAddr ) ) < 0 )
