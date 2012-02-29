@@ -95,6 +95,9 @@ int main( int argc, char *argv[] )
 			exit( 1 );
 		}
 
+		/* print client's port */
+		printf("Client TCP port: %d\n", ntohs( clientAddr.sin_port ));
+
 		/* Begin receiving bytes from the client */
 		numBytesRcvd = 0;
 		c = ' ';
