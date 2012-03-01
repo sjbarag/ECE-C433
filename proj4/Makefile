@@ -6,6 +6,7 @@ BIN1C = incrementClient
 SRC1S = incrementServer.c
 BIN1S = incrementServer
 
+CFLAGS2 = -g -lcrypto
 SRC2C = yadac.c
 BIN2C = yadac
 BINDIR  = bin/
@@ -25,7 +26,7 @@ run1s:
 	./${BINDIR}${BIN1S}
 
 yadac:
-	gcc ${FLAGS2} -o ${BINDIR}${BIN2C} ${SRC2C}
+	gcc ${CFLAGS2} -o ${BINDIR}${BIN2C} ${SRC2C}
 
 ${BINDIR}:
 	mkdir ${BINDIR}
