@@ -5,6 +5,9 @@ SRC1C = incrementClient.c
 BIN1C = incrementClient
 SRC1S = incrementServer.c
 BIN1S = incrementServer
+
+SRC2C = yadac.c
+BIN2C = yadac
 BINDIR  = bin/
 
 default : q1
@@ -20,6 +23,9 @@ run1c:
 
 run1s:
 	./${BINDIR}${BIN1S}
+
+yadac:
+	gcc ${FLAGS2} -o ${BINDIR}${BIN2C} ${SRC2C}
 
 ${BINDIR}:
 	mkdir ${BINDIR}
