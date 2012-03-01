@@ -17,18 +17,14 @@ int main( int argc, char *argv[] )
 	int sockfd;
 	struct sockaddr_in serverAddr;
 
-	/* The string of digits transmitted to server */
-	char *sendNumberString;
+	/* the number to send to the server */
+	int send_number;
 
-	/* number of bytes transmitted to server */
-	unsigned int sendNumberStringLen;
+	/* the number to receive from the server */
+	int recv_number;
 
-	/* buffer in which incremented number string is stored */
-	char recvBuffer[RECVBUFSIZE];
 	/* number of bytes received from the server */
 	int numBytesRcvd = 0;
-	/* character used to store each byte received from server */
-	char c = ' ';
 
 	/* port on the server to use */
 	int server_port;
@@ -44,13 +40,14 @@ int main( int argc, char *argv[] )
 		server_port = 10001;
 
 		/* set number to send */
-		sendNumberString = argv[2];
+		send_number = atoi( argv[2] );
 	}
 	else if ( argc == 4 )
 	{
 		server_port = atoi( argv[2] );
+
 		/* set number to send */
-		sendNumberString = argv[3];
+		send_number = atoi( argv[3] );
 	}
 
 	/* create socket */
@@ -84,33 +81,21 @@ int main( int argc, char *argv[] )
 
 
 
-	/* number of bytes to send is 1 more than the number of digits in the number
-	   because we have to also send the delimiter character '\0' */
-	sendNumberStringLen = strlen( sendNumberString ) + 1;
-
-	if ( write( sockfd, sendNumberString, sendNumberStringLen ) != sendNumberStringLen )
+	/* an integer is a fixed-width data structure, so we can just use sizeof */
+	if ( write( sockfd, &send_number, sizeof(int) ) != sizeof(int) )
 	{
 		perror( "write error" );
 		exit( 1 );
 	}
-	printf( "Sent number %s to server.\n", sendNumberString );
+	printf( "Sent number %d to server.\n", send_number );
 
-	/* receive characters from server one by one until you finally receive
-		the delimiter character */
-	while ( c != '\0' )
+	/* receive sizeof(int) bytes */
+	if ( read( sockfd, &recv_number, sizeof(int) ) != sizeof(int) )
 	{
-		if ( read( sockfd, &c, 1 ) == 1 )
-		{
-			recvBuffer[ numBytesRcvd ] = c;
-			numBytesRcvd++;
-		}
-		else
-		{
-			perror( "read() error" );
-			exit( 1 );
-		}
+		perror( "read() error" );
+		exit( 1 );
 	}
-	printf( "Received incremented number %s from server.\n", recvBuffer );
+	printf( "Received incremented number %d from server.\n", recv_number );
 
 	/* close socket and exit */
 	close( sockfd );

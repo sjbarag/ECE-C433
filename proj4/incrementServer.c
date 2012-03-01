@@ -23,18 +23,7 @@ int main( int argc, char *argv[] )
 	struct sockaddr_in clientAddr;
 	unsigned int clientAddrLen;
 
-	/* buffer into which number received from client is stored */
-	char recvBuffer[RECVBUFSIZE];
-	/* number of bytes received from the client */
-	int numBytesRcvd;
-	/* character used to store each byte received from client */
-	char c;
-
-	/* buffer in which the incremented number is stored */
-	char incNumberString[RECVBUFSIZE];
-
-	/* number of bytes to send to client in order to send the incremented number */
-	unsigned int incNumberStringLen;
+	int recv_number;
 
 	if ( argc != 2 )
 	{
@@ -98,38 +87,25 @@ int main( int argc, char *argv[] )
 		/* print client's port */
 		printf("Client TCP port: %d\n", ntohs( clientAddr.sin_port ));
 
-		/* Begin receiving bytes from the client */
-		numBytesRcvd = 0;
-		c = ' ';
-		while ( c != '\0' )
+		/* receive sizeof(int) bytes */
+		if ( read( clientSocket, &recv_number, sizeof(int) ) != sizeof(int) )
 		{
-			if ( read( clientSocket, &c, 1 ) == 1 )
-				{
-					recvBuffer[ numBytesRcvd ] = c;
-					numBytesRcvd++;
-				}
-			else
-				{
-					perror( "read() error" );
-					exit( 1 );
-				}
-		}
-		printf( "Received number %s from a client.\n", recvBuffer );
-
-		/* increment received number and store it as a string */
-		sprintf( incNumberString, "%d", atoi( recvBuffer ) + 1 );
-
-		/* number of bytes to send to client is one more than the number of
-		   digits in the incremented number since we also count the delimiter '\0' */
-		incNumberStringLen = strlen( incNumberString ) + 1;
-
-		/* send incremented number to client */
-		if ( write( clientSocket, incNumberString, incNumberStringLen ) != incNumberStringLen )
-		{
-			perror( "send error" );
+			perror( "read() error" );
 			exit( 1 );
 		}
-		printf( "Returned number %s to the client.\n", incNumberString );
+
+		printf( "Received number %d from a client.\n", recv_number );
+
+		/* increment received number */
+		recv_number++;
+
+		/* send incremented number to client */
+		if ( write( clientSocket, &recv_number, sizeof(int) ) != sizeof(int) )
+		{
+			perror( "write error" );
+			exit( 1 );
+		}
+		printf( "Returned number %d to the client.\n", recv_number );
 
 		close( clientSocket );
 	}
