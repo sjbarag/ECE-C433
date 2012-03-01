@@ -10,23 +10,26 @@
 #include <openssl/evp.h>
 
 
+void print_usage()
+{
+	fprintf(stderr, "Usage: yadac [option]\n");
+	fprintf(stderr, "Options:\n");
+	fprintf(stderr, "    l, link  \tLink the current directory with the remote server\n");
+	fprintf(stderr, "    u, unlink\tUnlink the current directory with the remote server\n");
+	fprintf(stderr, "    s, sync  \tSynchronize the files within the current directory with those on the server\n");
+	fprintf(stderr, "    i, info  \tPrint output state of current folder\n");
+	exit(1);
+}
+
 #define DIGEST_NAME "md5"
 
 int main( int argc, char *argv[])
 {
 	if( argc != 2 )
-	{
-		fprintf(stderr, "Usage: yadac [option]\n");
-		fprintf(stderr, "Options:\n");
-		fprintf(stderr, "    l, link  \tLink the current directory with the remote server\n");
-		fprintf(stderr, "    u, unlink\tUnlink the current directory with the remote server\n");
-		fprintf(stderr, "    s, sync  \tSynchronize the files within the current directory with those on the server\n");
-		fprintf(stderr, "    i, info  \tPrint output state of current folder\n");
-		exit(1);
-	}
+		print_usage();
 	else
 	{
-		char *buf = (char *) malloc( 25 * sizeof(char) );
+		/* test for known arguments */
 
 		EVP_MD_CTX mdctx;
 		const EVP_MD *md;
